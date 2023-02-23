@@ -1,79 +1,76 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAX 10
-
-typedef struct{
-    int top;
-    int data[MAX];
-}STACK;
+typedef struct node{
+    int data;
+    struct node *link;
+}*STACK;
 
 void initStack(STACK *S)
 {
-    S->top = -1;
+    *S = NULL;
 }
 
 int isEmpty(STACK S)
 {
-   return S.top == -1;
-}
-
-int isFull(STACK S)
-{
-   return S.top == MAX-1; 
+    return S == NULL;
 }
 
 void pop(STACK *S)
 {
     if(!isEmpty(*S))
     {
-        S->top--;
+        STACK temp;
+        temp = *S;
+        *S = temp->link;
+
+        free(temp);
     }
 }
 
 void push(STACK *S, int elem)
 {
-    if(!isFull(*S))
+    STACK temp = (STACK)malloc(sizeof(struct node));
+
+    if(temp != NULL)
     {
-        S->data[++S->top] = elem;
+        temp->data = elem;
+        temp->link = *S;
+        *S = temp;
     }
 }
 
 void display(STACK S)
 {
-    while(!isEmpty(S))
+    for(; S != NULL; S = S->link)
     {
-        printf("%d \n", S.data[S.top]);
-        pop(&S);
+        printf("%d \n", S->data);
     }
 }
 
 void insertBottom(STACK *S, int elem)
 {
-    if(!isFull(*S))
+    if(isEmpty(*S))
     {
-        if(isEmpty(*S))
-        {
-            push(S, elem);
-        }else{
-            STACK temp;
-            initStack(&temp);
+        push(S, elem);
+    }else{
+        STACK temp;
+        initStack(&temp);
 
             while(!isEmpty(*S))
             {
-                push(&temp, S->data[S->top]);
+                push(&temp, (*S)->data);
                 pop(S);
             }
-            
-                push(S, elem);
 
-            while(!isEmpty(temp))
+            push(S, elem);
+
+            while (!isEmpty(temp))
             {
-                push(S, temp.data[temp.top]);
+                push(S, temp->data);
                 pop(&temp);
             }
-        }
-    }else{
-        printf("Stack is already Full!");
+            
     }
 }
 
