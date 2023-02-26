@@ -1,60 +1,72 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-#define SIZE 8
+typedef struct node{
+    int data;
+    struct node *link;
+}*nodetype;
 
 typedef struct{
-    int front, rear;
-    int data[SIZE];
+    nodetype front;
+    nodetype rear;
 }QUEUE;
 
 void initQ(QUEUE *Q)
 {
-    Q->front = 0;
-    Q->rear = -1;
+    Q->front = NULL;
+    Q->rear = NULL;
 }
 
 int isEmpty(QUEUE Q)
 {
-    return (Q.rear + 1) % SIZE == Q.front;
-}
-
-int isFull(QUEUE Q)
-{
-    return (Q.rear + 2) % SIZE == Q.front;
+    return Q.front == NULL;
 }
 
 void enqueue(QUEUE *Q, int elem)
 {
-    if(!isFull(*Q))
+
+    nodetype temp = (nodetype)malloc(sizeof(struct node));
+
+    if(temp != NULL)
     {
-        Q->rear = (Q->rear + 1) % SIZE;
-        Q->data[Q->rear] = elem;
-    }else{
-        printf("Cant Dsiplay %d, because queue is full\n", elem);
+
+            temp->data = elem;
+            temp->link = NULL;
+
+            if(Q->rear == NULL)
+            {
+                Q->front = temp;
+            }else{
+                Q->rear->link = temp;
+            }
+        Q->rear = temp;
     }
 }
 
 void dequeue(QUEUE *Q)
 {
-    if(!isEmpty(*Q))
-    {
-        Q->front = (Q->front + 1) % SIZE;
-    }
+
+    nodetype temp;
+    temp = Q->front;
+        if(temp !=  NULL)
+        {
+            Q->front = temp->link;
+            free(temp);
+
+            if(Q->front == NULL)
+            {
+                Q->rear = NULL;
+            }
+        }
 }
 
 void display(QUEUE Q)
 {
-    while(!isEmpty(Q))
+    while (!isEmpty(Q))
     {
-        printf("%d ",Q.data[Q.front]);
+        printf("%d ", Q.front->data);
         dequeue(&Q);
     }
-}
-
-void FRStatus(QUEUE Q)
-{
-    printf("elemF   elemR    Front    Rear\n");
-    printf("%-7d %-8d %-8d %-9d",Q.data[Q.front], Q.data[Q.rear],  Q.front, Q.rear);
 }
 
 int main()
@@ -71,7 +83,7 @@ int main()
     enqueue(&A, 4);
     display(A);
     printf("\n\n");
-    FRStatus(A);
+
     printf("\n==============================================\n");
 
     //task 2
@@ -80,7 +92,7 @@ int main()
     dequeue(&A);
     display(A);
     printf("\n\n");
-    FRStatus(A);
+
     printf("\n==============================================\n");
 
 
@@ -94,7 +106,7 @@ int main()
     enqueue(&A, 9);
     display(A);
     printf("\n\n");
-    FRStatus(A);
+
 
     return 0;
 }
