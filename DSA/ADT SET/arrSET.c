@@ -71,6 +71,23 @@ SET UNION(SET A, SET B)
     return C;
 }
 
+SET INTERSECTION(SET A, SET B){
+    SET C;
+    int a, b;
+    C.count = 0;
+
+    for(a = 0; a < A.count; a++){
+        for(b = 0; b < B.count && A.data[a] > B.data[b]; b++){}
+
+        if(b < B.count && A.data[a] == B.data[b]){
+            C.data[C.count] = A.data[a];
+            C.count++;
+        }
+    }
+
+    return C;
+}
+
 int main()
 {
 
