@@ -21,16 +21,63 @@ void initDict(DICTIONARY *D)
     D->last = -1;
 }
 
-int HASH(char elem)
+int HASH(int elem)
 {
     return elem % MAX;
 }
 
-void insert(DICTIONARY *D, char elem)
+void insert(DICTIONARY *D, int elem)
 {
     int hashv = HASH(elem);
+    int i, x;
+
+    for(i = hashv, x = 0;  D->data[i] != EMPTY && D->data[i] != DELETED && x < MAX; (i + 1) % MAX, x++){}
+
+    D->last++;
+    D->data[i] = elem;
+
+}
+
+void delete(DICTIONARY *D, int elem)
+{
+    int hashv = HASH(elem);
+    int i, x;
+
+    for(i = hashv, x = 0; x < MAX && D->data[i] != elem; (i + 1) % MAX, x++){}
+
+    if(x < MAX)
+    {
+        D->last--;
+        D->data[i] = DELETED;
+    }
+}
+
+void display(DICTIONARY D)
+{
     int i;
 
-    for(i = hashv;  != EMPTY && i != DELETED)
+    printf("%-10s %-10s\n", "INDEX", "DATA");
 
+    for(i = 0; i < MAX; i++)
+    {
+        printf("%-10d %-10d\n", i, D.data[i]);
+    }
+}
+
+int main()
+{
+
+    DICTIONARY A;
+    initDict(&A);
+
+    insert(&A, 29);
+    insert(&A, 12);
+    insert(&A, 30);
+    insert(&A, 58);
+    delete(&A, 30);
+
+
+    display(A);
+
+    return 0;
 }
