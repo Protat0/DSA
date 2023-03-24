@@ -31,7 +31,7 @@ void insert(DICTIONARY *D, int elem)
     int hashv = HASH(elem);
     int i, x;
 
-    for(i = hashv, x = 0;  D->data[i] != EMPTY && D->data[i] != DELETED && x < MAX; (i + 1) % MAX, x++){}
+    for(i = hashv, x = 0;  D->data[i] > -1 && x < MAX; i = (i + 1) % MAX, x++){}
 
     D->last++;
     D->data[i] = elem;
@@ -43,7 +43,7 @@ void delete(DICTIONARY *D, int elem)
     int hashv = HASH(elem);
     int i, x;
 
-    for(i = hashv, x = 0; x < MAX && D->data[i] != elem; (i + 1) % MAX, x++){}
+    for(i = hashv, x = 0; x < MAX && D->data[i] != elem; i = (i + 1) % MAX, x++){}
 
     if(x < MAX)
     {
@@ -74,7 +74,8 @@ int main()
     insert(&A, 12);
     insert(&A, 30);
     insert(&A, 58);
-    delete(&A, 30);
+    // delete(&A, 30);
+    insert(&A, 48);
 
 
     display(A);
