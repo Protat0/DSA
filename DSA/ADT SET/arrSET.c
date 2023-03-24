@@ -34,7 +34,7 @@ SET UNION(SET A, SET B)
     int a, b;
 
     a = b = 0;
-    C.count = 0;
+    initSet(&C);
 
         while(a < A.count && b < B.count)
         {
@@ -71,6 +71,7 @@ SET UNION(SET A, SET B)
     return C;
 }
 
+<<<<<<< HEAD
 SET INTERSECTION(SET A, SET B){
     SET C;
     int a, b;
@@ -84,10 +85,49 @@ SET INTERSECTION(SET A, SET B){
             C.count++;
         }
     }
+=======
+SET INTERSECTION(SET A, SET B)
+{
+    SET C;
+    int a, b;
+    
+    initSet(&C);
+
+        for(a = 0; a < A.count; a++)
+        {
+            for(b = 0; b < B.count && A.data[a] < B.data[b]; b++){}
+
+            if(b < B.count && A.data[a] == B.data[b])
+            {
+                C.data[C.count] = A.data[a];
+                C.count++;
+            }
+        }
+>>>>>>> 346383958ebbc7f86fd28b1be5178f7944ccb46f
 
     return C;
 }
 
+<<<<<<< HEAD
+=======
+SET DIFFERENCE(SET A, SET B)
+{
+    SET C;
+    int a, b;
+    initSet(&C);
+
+        for(a = 0; a < A.count; a++)
+        {
+            for(b = 0; b < B.count && A.data[a] < B.data[b]; b++){}
+
+            if(A.data[a] != B.data[b])
+            {
+                C.data[C.count] = A.data[a];
+                C.count++;
+            }
+        }    
+}
+>>>>>>> 346383958ebbc7f86fd28b1be5178f7944ccb46f
 int main()
 {
 
