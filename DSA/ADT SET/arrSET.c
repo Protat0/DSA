@@ -71,8 +71,9 @@ SET UNION(SET A, SET B)
     return C;
 }
 
-<<<<<<< HEAD
-SET INTERSECTION(SET A, SET B){
+
+SET INTERSECTION(SET A, SET B)
+{
     SET C;
     int a, b;
     C.count = 0;
@@ -85,7 +86,8 @@ SET INTERSECTION(SET A, SET B){
             C.count++;
         }
     }
-=======
+}
+
 SET INTERSECTION(SET A, SET B)
 {
     SET C;
@@ -103,13 +105,11 @@ SET INTERSECTION(SET A, SET B)
                 C.count++;
             }
         }
->>>>>>> 346383958ebbc7f86fd28b1be5178f7944ccb46f
+
 
     return C;
 }
 
-<<<<<<< HEAD
-=======
 SET DIFFERENCE(SET A, SET B)
 {
     SET C;
@@ -127,7 +127,7 @@ SET DIFFERENCE(SET A, SET B)
             }
         }    
 }
->>>>>>> 346383958ebbc7f86fd28b1be5178f7944ccb46f
+
 int main()
 {
 

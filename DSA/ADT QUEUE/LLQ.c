@@ -46,18 +46,19 @@ void enqueue(QUEUE *Q, int elem)
 void dequeue(QUEUE *Q)
 {
 
-    nodetype temp;
+    nodetype temp = (nodetype)malloc(sizeof(struct node));
     temp = Q->front;
-        if(temp !=  NULL)
-        {
-            Q->front = temp->link;
-            free(temp);
 
-            if(Q->front == NULL)
-            {
-                Q->rear = NULL;
-            }
+    if(temp != NULL)
+    {
+        Q->front = temp->link;
+        free(temp);
+
+        if(Q->front == NULL)
+        {
+            Q->rear = NULL;
         }
+    }
 }
 
 void display(QUEUE Q)
