@@ -17,13 +17,13 @@ void initBST(BST *B)
     *B = NULL;
 }
 
-void insert(BST *B, int elem)
+void insert(BST *B, int elem) //insert 69
 {
     BST *trav;
 
         for(trav = B; *trav != NULL;)
         {
-            trav = ((*trav)->data > elem) ? &(*trav)->LL : &(*trav)->LR;
+            trav = (elem < (*trav)->data) ? &(*trav)->LL : &(*trav)->LR;
         }
 
     if(*trav == NULL)
@@ -150,7 +150,7 @@ void preorder(BST B)
 {
     if(B != NULL)
     {
-        printf("%d", B->data);
+        printf("%d ", B->data);
         preorder(B->LL);
         preorder(B->LR);
     }
@@ -185,10 +185,12 @@ int main()
     isMember(A, 20);
     isMember(A, 11);
 
-    delete(&A, 7);
+    // delete(&A, 7);
 
     printf("\n");
     display(A);
 
+    printf("\n\n\n");
+    preorder(A);
     return 0;
 }
